@@ -5,8 +5,6 @@ class CityRepository {
   // register a new city
   async createCity({ name }) {
     try {
-
-      console.log("object ",db)
       const city = await db.City.create({
         name,
       });
@@ -20,7 +18,7 @@ class CityRepository {
   // Get the city by cityId
   async getCity(cityId) {
     try {
-      const city = await City.findByPk(cityId);
+      const city = await db.City.findByPk(cityId);
       return city;
     } catch (error) {
       console.log("something went wrong in repository level");
@@ -31,11 +29,16 @@ class CityRepository {
   //update the city values
   async updateCity(cityId, data) {
     try {
-      const city = await City.update(data, {
-        where: {
-          id: cityId,
-        },
-      });
+      // const city = await db.City.update(data, {
+      //   where: {
+      //     id: cityId,
+      //   },
+      // });
+
+      const city = await db.City.findByPk(cityId);
+      city.name = data.name;
+      await city.save();
+      return city;
     } catch (error) {
       console.log("something went wrong in repository level");
       throw { error };
@@ -45,11 +48,12 @@ class CityRepository {
   // delete the city
   async deleteCity(cityId) {
     try {
-      await City.destroy({
+      const response = await db.City.destroy({
         where: {
           id: cityId,
         },
       });
+      return true;
     } catch (error) {
       console.log("something went wrong in repository level");
       throw { error };
