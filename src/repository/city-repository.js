@@ -1,13 +1,14 @@
-const { City } = require("../models/index");
+const db = require("../models/index");
 
+// const city = new City();
 class CityRepository {
-
-  // register a new city 
+  // register a new city
   async createCity({ name }) {
     try {
-      // const city = await City.createCity({name});
-      const city = await City.createCity({
-        name: name,
+
+      console.log("object ",db)
+      const city = await db.City.create({
+        name,
       });
       return city;
     } catch (error) {
@@ -41,7 +42,7 @@ class CityRepository {
     }
   }
 
-  // delete the city 
+  // delete the city
   async deleteCity(cityId) {
     try {
       await City.destroy({

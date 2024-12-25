@@ -7,7 +7,9 @@ class CityService {
 
   async createCity(data) {
     try {
+      console.log("services");
       const city = await this.cityRepository.createCity(data);
+      console.log("service response ", city);
       return city;
     } catch (error) {
       console.log("something went wrong in service level");
@@ -45,3 +47,5 @@ class CityService {
     }
   }
 }
+
+module.exports = CityService;
