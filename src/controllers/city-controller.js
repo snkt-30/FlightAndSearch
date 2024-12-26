@@ -90,13 +90,14 @@ const getCity = async (req, res) => {
 
 const getAllCities = async (req, res) => {
   try {
-    const cities = await cityService.getAllCities();
+    const cities = await cityService.getAllCities(req.query);
     return res.status(200).json({
       data: cities,
       success: true,
       messaage: "Successfully fetch the city",
       error: {},
     });
+    
   } catch (error) {
     return res.status(500).json({
       data: {},
